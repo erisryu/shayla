@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Will You Go on a Date with Me?</title>
+  <style>
+    body {
+      background-color: #a2d5f2; /* Pastel blue */
+      font-family: 'Times New Roman', serif;
+      color: #f5f5dc; /* Pastel beige */
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    .buttons {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    #yesButton, #noButton {
+      background-color: #ff69b4; /* Pastel pink */
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+    #noButton {
+      background-color: #ff69b4; /* Pastel pink */
+    }
+    #resultPage {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+    #resultPage h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    .animated-character {
+      font-size: 5rem;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+  </style>
+</head>
+<body>
+  <div id="mainPage">
+    <h1>Will you go on a date with me? 👩‍❤️‍👩😶‍🌫️</h1>
+    <div class="buttons">
+      <button id="yesButton">Yes</button>
+      <button id="noButton">No</button>
+    </div>
+    <p id="responseText" style="display: none; margin-top: 20px; font-size: 1.2rem;"></p>
+  </div>
+
+  <div id="resultPage">
+    <h1>Yippee, let's meet this weekend!  </h1>
+    <div class="animated-character">🎉</div>
+  </div>
+
+  <script>
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+    const responseText = document.getElementById('responseText');
+    const mainPage = document.getElementById('mainPage');
+    const resultPage = document.getElementById('resultPage');
+
+    const messages = [
+      "Are you sure about this?",
+      "Think about it carefully...",
+      "Really? Don't say no!",
+      "Give it another thought!",
+      "You might regret it!",
+      "Just say yes already!",
+    ];
+
+    let messageIndex = 0;
+    let yesButtonSize = 1;
+    let noButtonSize = 1;
+
+    // Function to handle "No" button click
+    noButton.addEventListener('click', () => {
+      responseText.style.display = 'block';
+      responseText.textContent = messages[messageIndex % messages.length];
+      messageIndex++;
+
+      // Increase "Yes" button size
+      yesButtonSize += 0.2;
+      yesButton.style.transform = `scale(${yesButtonSize})`;
+
+      // Decrease "No" button size
+      noButtonSize -= 0.1;
+      noButton.style.transform = `scale(${noButtonSize})`;
+
+      // Hide "No" button if it becomes too small
+      if (noButtonSize <= 0.1) {
+        noButton.style.display = 'none';
+      }
+    });
+
+    // Function to handle "Yes" button click
+    yesButton.addEventListener('click', () => {
+      mainPage.style.display = 'none';
+      resultPage.style.display = 'flex';
+    });
+  </script>
+</body>
+</html>
